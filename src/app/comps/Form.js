@@ -1,9 +1,10 @@
 'use client';
 
 import Link from "next/link";
-import AlbumsDB from "./AlbumsDB";
 import { useState,useEffect } from "react";
 
+const CLIENT_ID="d4f2b82471934979a5fdc3296de5b02e";
+const CLIENT_SECRET="d8981fc6821c4138a5e08ec4ac771350";
 
 
 export default function Form() {
@@ -45,6 +46,7 @@ export default function Form() {
         let returnedAlbums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums' + '?include_groups=album&market=GB&limit=50', searchParameters)
         .then(response => response.json())
         .then(data => {console.log(data); setAlbums(data.items);})
+
     }
     
     return(
@@ -69,7 +71,6 @@ export default function Form() {
                       )
                     })}
                 </ul>
-                <AlbumsDB />
             </div>
         </div>
     )
