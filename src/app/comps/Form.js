@@ -8,10 +8,12 @@ const CLIENT_ID="d4f2b82471934979a5fdc3296de5b02e";
 const CLIENT_SECRET="d8981fc6821c4138a5e08ec4ac771350";
 
 
+
 export default function Form() {
     const [searchInput, setSearchInput] = useState("");
     const [accessToken, setAccessToken] = useState("");
     const [albums, setAlbums] = useState([ ]);
+
     
     useEffect(() => {
         let authParameters = {
@@ -59,17 +61,18 @@ export default function Form() {
             <button onClick={search}>Button</button>
             </div>
             <div>
-                <h2>Albums</h2>
+                <h2>Available Albums:</h2>
                 <ul>
                     {albums.map( (album) => {
                       return (
+                        <div className="albumContainer">
                         <div key={album.id}>
                         <img src={`${album.images[0].url}`} />
                         <h3>{album.name}</h3>
                         <Link href={`${album.external_urls.spotify}`}>Play</Link>
                         <p>Artist: {album.artists[0].name}</p>
-                        <button onClick={() => {console.log(album)}}>Add</button>
                         <AddAlbum album={album}/>
+                        </div>
                         </div>
                       )
                     })}
