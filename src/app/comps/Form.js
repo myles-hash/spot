@@ -1,11 +1,10 @@
 'use client';
 
-const CLIENT_ID = "d4f2b82471934979a5fdc3296de5b02e";
-const CLIENT_SECRET = "d8981fc6821c4138a5e08ec4ac771350";
-
-import Image from "next/image";
 import Link from "next/link";
+import AlbumsDB from "./AlbumsDB";
 import { useState,useEffect } from "react";
+
+
 
 export default function Form() {
     const [searchInput, setSearchInput] = useState("");
@@ -59,16 +58,18 @@ export default function Form() {
             <div>
                 <h2>Albums</h2>
                 <ul>
-                    {albums.map( (album, i) => {
+                    {albums.map( (album) => {
                       return (
                         <div key={album.id}>
                         <img src={`${album.images[0].url}`} />
                         <h3>{album.name}</h3>
                         <Link href={`${album.external_urls.spotify}`}>Play</Link>
+                        <p>Artist: {album.artists[0].name}</p>
                         </div>
                       )
                     })}
                 </ul>
+                <AlbumsDB />
             </div>
         </div>
     )
