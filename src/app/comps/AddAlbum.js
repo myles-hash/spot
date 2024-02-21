@@ -4,7 +4,6 @@ import { useState } from "react";
 
 
 export default function AddAlbum({ album }) {
-  // const handleAddAlbum = handleAddToDB.bind(null, album);
   const [isAdding, setIsAdding] = useState(false);
 
   const handleAddAlbum = async () => {

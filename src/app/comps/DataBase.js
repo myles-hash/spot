@@ -13,13 +13,13 @@ export default async function DataBase() {
          <ul>
                     {dbAlbums.rows.map( (dbAlbum) => {
                       return (
-                        <div className="albumContainer">
-                        <div key={dbAlbum.album_id}>
+                        <div className="albumContainer" key={dbAlbum.album_id}>
                         <img src={`${dbAlbum.album_image_url}`} />
                         <h3>{dbAlbum.album_name}</h3>
                         <Link href={`${dbAlbum.spotify_link}`}>Play</Link>
                         <p>Artist: {dbAlbum.album_artist}</p>
-                        </div>
+                        <p>Score: {dbAlbum.album_score}</p>
+                        <p>Review: {dbAlbum.album_review}</p>
                         </div>
                       )
                     })}

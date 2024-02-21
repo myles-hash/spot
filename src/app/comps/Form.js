@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState,useEffect } from "react";
 import AddAlbum from "./AddAlbum";
+import ReviewForm from "./ReviewForm";
 
 const CLIENT_ID="d4f2b82471934979a5fdc3296de5b02e";
 const CLIENT_SECRET="d8981fc6821c4138a5e08ec4ac771350";
@@ -65,14 +66,13 @@ export default function Form() {
                 <ul>
                     {albums.map( (album) => {
                       return (
-                        <div className="albumContainer">
-                        <div key={album.id}>
+                        <div className="albumContainer" key={album.id}>
                         <img src={`${album.images[0].url}`} />
                         <h3>{album.name}</h3>
                         <Link href={`${album.external_urls.spotify}`}>Play</Link>
                         <p>Artist: {album.artists[0].name}</p>
+                        <ReviewForm />
                         <AddAlbum album={album}/>
-                        </div>
                         </div>
                       )
                     })}

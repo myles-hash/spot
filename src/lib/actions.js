@@ -11,3 +11,11 @@ export async function handleAddToDB(album) {
     revalidatePath(`/`);
     redirect(`/`);
 }
+
+export async function handleReviewForm(formData) {
+
+    const album_score = formData.get("review_score");
+    const album_review = formData.get("album_review");
+
+    await sql`INSERT INTO reviews (album_score, album_review) VALUES (${album_score},${album_review})`;
+  }
