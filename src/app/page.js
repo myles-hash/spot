@@ -1,12 +1,12 @@
 import DataBase from "./comps/DataBase";
 
 
-export default function Home() {
-
+export default function Home({ searchParams }) {
+  console.log(searchParams);
 
   return (
     <div>
-    <DataBase />
+    <DataBase searchParams={searchParams}/>
       </div>
   )
 }
