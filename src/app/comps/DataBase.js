@@ -17,6 +17,7 @@ export default async function DataBase({ searchParams}) {
 
   const dbAlbums = await sql.query(queryString);
 
+
     return (
         <div className="albumsContainer">
             <h1>SAVED ALBUMS</h1>

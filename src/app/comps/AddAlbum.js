@@ -20,34 +20,6 @@ export default function AddAlbum({ album, formData, onFormChange }) {
 
 
  return (
-//   <div>
-//     <form>
-//                  <h4>Review Form</h4>
-//                  <label for="number">Score out of 5 (1-5):</label>
-//                   <select 
-//                   id="number"   
-//                   name="album_score"
-//                   value={formData.album_score}
-//                   onChange={onFormChange}
-//                   required>
-//                     <option value="1">1</option>
-//                     <option value="2">2</option>
-//                     <option value="3">3</option>
-//                     <option value="4">4</option>
-//                     <option value="5">5</option>
-//                   </select>
-//                  <textarea
-//                    name="album_review"
-//                    placeholder="Album Review"
-//                    value={formData.album_review}
-//                    onChange={onFormChange}
-//                    required
-//                  ></textarea>
-//     <button onClick={handleAddAlbum} type="submit" disabled={isAdding}>
-//         {isAdding ? "Adding album..." : "Add album"}
-//       </button>
-//       </form>
-// </div>
 <div style={{ display: 'flex', justifyContent: 'center' }}>
     <form style={{ maxWidth: '400px', width: '100%' }}>
         <h4 style={{ textAlign: 'center', marginBottom: '20px' }}>Review Form</h4>
