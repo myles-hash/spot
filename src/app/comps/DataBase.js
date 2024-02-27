@@ -35,10 +35,11 @@ export default async function DataBase({ searchParams}) {
                             <div className="albumImage" style={{ backgroundImage: `url(${dbAlbum.album_image_url})` }}></div>
                             <div className="albumInfo">
                                 <h3>{dbAlbum.album_name}</h3>
-                                <Link href={dbAlbum.spotify_link} target='_blank'>Play</Link>
-                                <p>Artist: {dbAlbum.album_artist}</p>
-                                <p>Score: {dbAlbum.album_score} / 5</p>
-                                <p>Review: {dbAlbum.album_review}</p>
+                                <Link href={dbAlbum.spotify_link} target='_blank' style={{ padding: '8px 16px', backgroundColor: '#A9A9A9', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', textDecoration: 'none'}} className="link"><strong>PLAY</strong></Link>
+                                <p>Artist: <strong>{dbAlbum.album_artist}</strong></p>
+                                <p>Score: <strong>{dbAlbum.album_score} / 5</strong></p>
+                                <p>Review: <strong>{dbAlbum.album_review}</strong></p>
+                                <p>Favourite Track: <strong>{dbAlbum.fav_track}</strong></p>
                             </div>
                         </div>
                     );

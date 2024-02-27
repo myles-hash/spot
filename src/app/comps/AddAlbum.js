@@ -3,13 +3,13 @@ import { handleAddToDB } from "@/lib/actions";
 import { useState } from "react";
 
 
-export default function AddAlbum({ album, formData, onFormChange }) {
+export default function AddAlbum({ album, formData, onFormChange, fav_track }) {
   const [isAdding, setIsAdding] = useState(false);
 
   const handleAddAlbum = async () => {
     setIsAdding(true);
     try {
-      await handleAddToDB(album, formData);
+      await handleAddToDB(album, formData, fav_track);
       console.log("Album added successfully!");
     } catch (error) {
       console.error("Error adding album:", error);

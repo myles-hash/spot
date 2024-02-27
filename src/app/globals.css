@@ -41,3 +41,7 @@
 .albumInfo {
   padding: 10px;
 }
+
+.link:hover {
+  color: black !important;
+}
