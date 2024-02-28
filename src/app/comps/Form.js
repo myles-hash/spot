@@ -11,6 +11,7 @@ const CLIENT_SECRET="d8981fc6821c4138a5e08ec4ac771350";
 export default function Form() {
     const [searchInput, setSearchInput] = useState("");
     const [accessToken, setAccessToken] = useState("");
+    const [artistSuggestions, setArtistSuggestions] = useState([]);
     const [albums, setAlbums] = useState([ ]);
     const [albumTracks, setAlbumTracks] = useState([ ]);
     const [selectedAlbumId, setSelectedAlbumId] = useState(null);
@@ -21,27 +22,55 @@ export default function Form() {
         fav_track: ''
       });
 
-      const handleFormChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-          ...prevState,
-          [name]: value
-        }));
-      };
-
     
-    useEffect(() => {
-        let authParameters = {
+  useEffect(() => {
+    let authParameters = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
         }
-    fetch('https://accounts.spotify.com/api/token', authParameters)
-    .then(result => result.json ())
-    .then (data => setAccessToken(data.access_token))
-    }, [])
+    async function fetchData() {
+    const response = await fetch('https://accounts.spotify.com/api/token', authParameters);
+    const data = await response.json();
+    setAccessToken(data.access_token);
+    }
+    fetchData();
+    }, []);
+
+  
+    useEffect(() => {
+      // Fetch artist suggestions when searchInput changes
+      async function fetchArtistSuggestions() {
+        if (searchInput.trim() !== "") {
+          let searchParameters = {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + accessToken,
+            },
+          };
+  
+          const response = await fetch(
+            "https://api.spotify.com/v1/search?q=" +
+              searchInput +
+              "&type=artist",
+            searchParameters
+          );
+          const data = await response.json();
+          setArtistSuggestions(data.artists.items);
+        } else {
+          // Clear suggestions if searchInput is empty
+          setArtistSuggestions([]);
+        }
+      }
+  
+      fetchArtistSuggestions();
+    }, [searchInput, accessToken]);
+  
+
+
 
     async function search() {
         console.log("Search for " + searchInput);
@@ -55,15 +84,21 @@ export default function Form() {
 
         }
 
+
         let artistID = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', searchParameters)
         .then(response => response.json())
-        .then(data => { return data.artists.items[0].id})
+        .then(data => {
+          return data.artists.items[0].id;
+      });
+
 
         console.log("Artist ID is " + artistID);
+
 
         let returnedAlbums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums' + '?include_groups=album&market=GB&limit=50', searchParameters)
         .then(response => response.json())
         .then(data => {console.log("This", data.items[0].id); setAlbums(data.items);})
+
 
 
     }
@@ -92,14 +127,28 @@ export default function Form() {
         
       }
 
+      const handleFormChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+          ...prevState,
+          [name]: value
+        }));
+      };
+
+      console.log(artistSuggestions)
     
     return(
 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' , flexWrap: 'wrap', justifyContent: 'space-around'}}> 
     <div style={{ marginBottom: '20px' }}>
-        <form style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }} onChange={event => setSearchInput(event.target.value)} onSubmit={search}>
+        <form style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }} onChange={event => setSearchInput(event.target.value)} onSubmit={(e) => { e.preventDefault(); search(); }}>
     <input style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px', marginRight: '10px' }} placeholder="Search For Artist" type="input" />
 </form>
 <button style={{ padding: '8px 16px', backgroundColor: 'black', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }} onClick={search}>SEARCH</button>
+<ul style={{ listStyle: "none", padding: "0" }}>
+          {artistSuggestions.map((artist) => (
+            <li key={artist.id}>{artist.name}</li>
+          ))}
+        </ul>
     </div>
     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', width: 'calc(100% - 150px)', alignItems: 'center' , flexWrap: 'wrap' }}>
         <h2 style={{ marginBottom: '10px', width: '100%' }}>Available Albums:</h2>
@@ -135,4 +184,3 @@ export default function Form() {
     )
     
 }
-
