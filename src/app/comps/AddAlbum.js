@@ -22,8 +22,7 @@ export default function AddAlbum({ album, formData, onFormChange, fav_track }) {
  return (
 <div style={{ display: 'flex', justifyContent: 'center' }}>
     <form style={{ maxWidth: '400px', width: '100%' }}>
-        <h4 style={{ textAlign: 'center', marginBottom: '20px' }}>Review Form</h4>
-        <label htmlFor="number" style={{ display: 'block', marginBottom: '10px' }}>Score out of 5 (1-5):</label>
+        {/* <label htmlFor="number" style={{ display: 'block', marginBottom: '10px' }}>Score out of 5 (1-5):</label> */}
         <select 
             id="number"   
             name="album_score"
@@ -32,6 +31,7 @@ export default function AddAlbum({ album, formData, onFormChange, fav_track }) {
             required
             style={{ padding: '8px', width: '100%', marginBottom: '20px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box' }}
         >
+            <option>Score out of 5</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
