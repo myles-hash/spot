@@ -8,21 +8,14 @@ export default function AddAlbum({ album, formData, onFormChange, fav_track }) {
 
   const handleAddAlbum = async () => {
     setIsAdding(true);
-    try {
-      await handleAddToDB(album, formData, fav_track);
-      console.log("Album added successfully!");
-    } catch (error) {
-      console.error("Error adding album:", error);
-    } finally {
-      setIsAdding(false);
+    await handleAddToDB(album, formData, fav_track);
+    setIsAdding(false);
     }
-  };
 
 
  return (
 <div style={{ display: 'flex', justifyContent: 'center' }}>
     <form style={{ maxWidth: '400px', width: '100%' }}>
-        {/* <label htmlFor="number" style={{ display: 'block', marginBottom: '10px' }}>Score out of 5 (1-5):</label> */}
         <select 
             id="number"   
             name="album_score"

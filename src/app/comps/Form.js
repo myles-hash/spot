@@ -135,8 +135,13 @@ export default function Form() {
         }));
       };
 
-      console.log(artistSuggestions)
-      console.log(albums);
+      const handleAlbumChange = (e) => {
+        const albumId = e.target.value;
+        setSelectedTrack(''); 
+        setAlbumTracks([]); 
+        fetchTracks(albumId);
+      };
+
     
     return(
 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' , flexWrap: 'wrap', justifyContent: 'space-around'}}> 
@@ -164,7 +169,7 @@ export default function Form() {
                     <p style={{ margin: '0', textAlign: 'center' }}>Year: {album.release_date.substring(0, 4)}</p>
                     <h4 style={{ textAlign: 'center', marginBottom: '20px' }}>Review Form</h4>
                     <select
-                  onChange={(e) => setSelectedTrack(e.target.value)}
+                  onChange={(e) => { handleAlbumChange; setSelectedTrack(e.target.value)}}
                   style={{ padding: '8px', width: '100%', marginBottom: '20px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box' }}
                   onClick={() => { 
                       fetchTracks(album.id);
