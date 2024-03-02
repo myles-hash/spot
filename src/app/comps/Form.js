@@ -15,7 +15,6 @@ export default function Form() {
     const [artistSuggestions, setArtistSuggestions] = useState([]);
     const [artist, setArtist]= useState("");
     const [albums, setAlbums] = useState([ ]);
-    const [albumId, setAlbumId] = useState("");
     const [albumTracks, setAlbumTracks] = useState([ ]);
     const [selectedAlbumId, setSelectedAlbumId] = useState(null);
     const [selectedTrack, setSelectedTrack] = useState(null);
@@ -74,7 +73,6 @@ export default function Form() {
 
 
     async function search( artistId ) {
-        console.log("Search for " + searchInput);
 
         let searchParameters = {
             method: 'GET',
@@ -86,17 +84,7 @@ export default function Form() {
         }
 
 
-      //   let artistId = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', searchParameters)
-      //   .then(response => response.json())
-      //   .then(data => {
-      //     return data.artists.items[0].id;
-      // });
-
-
-        console.log("Artist ID is " + artistId);
-
-
-        let returnedAlbums = await fetch('https://api.spotify.com/v1/artists/' + artistId + '/albums' + '?include_groups=album&market=GB&limit=50', searchParameters)
+        await fetch('https://api.spotify.com/v1/artists/' + artistId + '/albums' + '?include_groups=album&market=GB&limit=50', searchParameters)
         .then(response => response.json())
         .then(data => {console.log("This", data.items[0].id); setAlbums(data.items);})
 
@@ -105,7 +93,7 @@ export default function Form() {
     }
 
     async function fetchTracks(albumId) {
-        let tracks = await fetch(
+      await fetch(
           `https://api.spotify.com/v1/albums/${albumId}/tracks`,
           {
             method: "GET",
@@ -121,9 +109,6 @@ export default function Form() {
             setAlbumTracks(data.items);
               setSelectedAlbumId(albumId);
           })
-          .catch((error) => {
-            console.error("Error fetching tracks:", error);
-          });
 
       }
 
