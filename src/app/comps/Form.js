@@ -129,10 +129,10 @@ export default function Form() {
 
     
     return(
-<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' , flexWrap: 'wrap', justifyContent: 'space-around'}}> 
-    <div style={{ marginBottom: '20px' }}>
-        <form style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }} onChange={event => setSearchInput(event.target.value)} onSubmit={(e) => { e.preventDefault(); search(); }}>
-    <input style={{ margin: '0', padding: '8px', border: '1px solid #ccc', borderRadius: '4px', marginRight: '10px' }} placeholder="Search For Artist" type="input" value={searchInput} onChange={event => setSearchInput(event.target.value)}/>
+<div className="form-outside-div"> 
+    <div className="form-second-div">
+        <form className="form-search-form" onChange={event => setSearchInput(event.target.value)} onSubmit={(e) => { e.preventDefault(); search(); }}>
+    <input className="form-search-input" placeholder="Search For Artist" type="input" value={searchInput} onChange={event => setSearchInput(event.target.value)}/>
 </form>
 <ul className="results-list">
           {artistSuggestions.map((artist) => (
@@ -142,20 +142,20 @@ export default function Form() {
           ))}
         </ul>
         </div>
-    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', width: 'calc(100% - 150px)', alignItems: 'center' , flexWrap: 'wrap' }}>
-        {artist && <h2 style={{ marginBottom: '10px', width: '100%' }}>Available {artist} Albums:</h2>}
-        <ul style={{ listStyle: 'none', padding: '0', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%' }}>
+    <div className="form-third-div">
+        {artist && <h2 className="available-albums-title">Available {artist} Albums:</h2>}
+        <ul className="available-albums-uls">
             {albums.map(album => (
-                <div key={album.id} style={{ marginBottom: '20px', border: '3px solid black', padding: '1rem', width: 'calc(25% - 30px)' }}>
-                    <img src={`${album.images[0].url}`} style={{ width: '100%', height: 'auto', borderRadius: '4px', marginBottom: '10px' }} />
-                    <h3 style={{ marginBottom: '5px', textAlign: 'center' }}>{album.name}</h3>
-                    <a href={`${album.external_urls.spotify}`} target="_blank" style={{ textDecoration: 'none', color: '#007bff', marginBottom: '5px', display: 'block', textAlign: 'center' }}>Play</a>
-                    <p style={{ margin: '0', textAlign: 'center' }}>Artist: {album.artists[0].name}</p>
-                    <p style={{ margin: '0', textAlign: 'center' }}>Year: {album.release_date.substring(0, 4)}</p>
-                    <h4 style={{ textAlign: 'center', marginBottom: '20px' }}>Review Form</h4>
+                <div key={album.id} className="album-map-div ">
+                    <img src={`${album.images[0].url}`} className="album-map-img" />
+                    <h3 className="album-map-h3">{album.name}</h3>
+                    <a href={`${album.external_urls.spotify}`} target="_blank" className="album-map-play">Play</a>
+                    <p className="album-map-p">Artist: {album.artists[0].name}</p>
+                    <p className="album-map-p">Year: {album.release_date.substring(0, 4)}</p>
+                    <h4 className="album-map-h4 ">Review Form</h4>
                     <select
                   onChange={(e) => { handleAlbumChange; setSelectedTrack(e.target.value)}}
-                  style={{ padding: '8px', width: '100%', marginBottom: '20px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box' }}
+                  className="album-map-select"
                   onClick={() => { 
                       fetchTracks(album.id);
                   }}

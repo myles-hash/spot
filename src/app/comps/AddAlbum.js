@@ -14,15 +14,15 @@ export default function AddAlbum({ album, formData, onFormChange, fav_track }) {
 
 
  return (
-<div style={{ display: 'flex', justifyContent: 'center' }}>
-    <form style={{ maxWidth: '400px', width: '100%' }}>
+<div className="add-album-div">
+    <form className="add-album-form">
         <select 
             id="number"   
             name="album_score"
             value={formData.album_score}
             onChange={onFormChange}
             required
-            style={{ padding: '8px', width: '100%', marginBottom: '20px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box' }}
+            className="add-album-select"
         >
             <option>Score out of 5</option>
             <option value="1">1</option>
@@ -37,13 +37,13 @@ export default function AddAlbum({ album, formData, onFormChange, fav_track }) {
             value={formData.album_review}
             onChange={onFormChange}
             required
-            style={{ padding: '8px', width: '100%', marginBottom: '20px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box' }}
+            className="add-album-textarea"
         ></textarea>
         <button
             onClick={handleAddAlbum}
             type="submit"
             disabled={isAdding}
-            style={{ padding: '10px 20px', backgroundColor: 'black', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', width: '100%' }}
+            className="add-album-button"
         >
             {isAdding ? "Adding album..." : "Add album"}
         </button>
