@@ -4,11 +4,11 @@ import Link from "next/link";
 
 
 export default async function DataBase({ searchParams}) {
-  let sortOrder = "ASC"; 
+  let sortOrder = "DESC"; 
 
 
   if (searchParams.sort === "desc") {
-      sortOrder = "DESC";
+      sortOrder = "ASC";
   }
 
 

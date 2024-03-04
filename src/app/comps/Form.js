@@ -112,11 +112,14 @@ export default function Form() {
 
       }
 
-      const handleFormChange = (e) => {
+      const handleFormChange = (e, albumId) => {
         const { name, value } = e.target;
-        setFormData(prevState => ({
+        setFormData((prevState) => ({
           ...prevState,
-          [name]: value
+          [albumId]: {
+            ...prevState[albumId],
+            [name]: value
+          }
         }));
       };
 
@@ -154,7 +157,9 @@ export default function Form() {
                     <p className="album-map-p">Year: {album.release_date.substring(0, 4)}</p>
                     <h4 className="album-map-h4 ">Review Form</h4>
                     <select
-                  onChange={(e) => { handleAlbumChange; setSelectedTrack(e.target.value)}}
+                  onChange={(e) => { 
+                    handleAlbumChange;
+                    setSelectedTrack(e.target.value)}}
                   className="album-map-select"
                   onClick={() => { 
                       fetchTracks(album.id);
@@ -167,7 +172,11 @@ export default function Form() {
                     </option>
                   ))}
                 </select>
-                    <AddAlbum album={album} formData={formData} onFormChange={handleFormChange} fav_track={selectedTrack} />
+                    <AddAlbum 
+                    album={album} 
+                    formData={formData[album.id] || { album_score: ' ', album_review: ' '}} 
+                    onFormChange={(e) => handleFormChange(e, album.id)} 
+                    fav_track={selectedTrack} />
                 </div>
             ))}
         </ul>

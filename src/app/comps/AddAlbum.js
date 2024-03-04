@@ -6,11 +6,23 @@ import { useState } from "react";
 export default function AddAlbum({ album, formData, onFormChange, fav_track }) {
   const [isAdding, setIsAdding] = useState(false);
 
-  const handleAddAlbum = async () => {
+
+const handleAddAlbum = async (e) => {
+    e.preventDefault();
+
+    if (!fav_track || formData.album_score == ' ' || !formData.album_review) {
+
+        alert("Please fill out all the required fields.");
+        return;
+    }
+
     setIsAdding(true);
     await handleAddToDB(album, formData, fav_track);
     setIsAdding(false);
-    }
+}
+
+
+
 
 
  return (
@@ -20,8 +32,7 @@ export default function AddAlbum({ album, formData, onFormChange, fav_track }) {
             id="number"   
             name="album_score"
             value={formData.album_score}
-            onChange={onFormChange}
-            required
+            onChange={(e) => onFormChange(e, album.id)}
             className="add-album-select"
         >
             <option>Score out of 5</option>
@@ -33,12 +44,10 @@ export default function AddAlbum({ album, formData, onFormChange, fav_track }) {
         </select>
         <textarea
             name="album_review"
-            placeholder="Album Review"
             value={formData.album_review}
-            onChange={onFormChange}
-            required
+            onChange={(e) => onFormChange(e, album.id)}
             className="add-album-textarea"
-        ></textarea>
+        ></textarea> 
         <button
             onClick={handleAddAlbum}
             type="submit"
