@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,10 +14,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav>
-          <Link href="/">SAVED ALBUMS</Link> | <Link href="/searchalbums">SEARCH ALBUMS</Link>
+      <header><p className="header-title">MUS0 MUSE</p>
+      <nav className="nav-link">
+          <Link href="/" className="nav-link">SAVED ALBUMS</Link> | <Link href="/searchalbums" className="nav-link">SEARCH ALBUMS</Link> | <Link href ="/about" className="nav-link">ABOUT</Link> | <Link href="/profiles" className="nav-link">PROFILES</Link> 
         </nav>
-        {children}</body>
+      </header>
+        {children}
+        <footer>Property of Myles &copy;</footer>
+        </body>
     </html>
   );
 }
