@@ -1,12 +1,10 @@
 'use client';
 
+
 import { useState, useEffect } from "react";
 import AddAlbum from "./AddAlbum";
+require ('dotenv').config();
 
-
-
-const CLIENT_ID="d4f2b82471934979a5fdc3296de5b02e";
-const CLIENT_SECRET="d8981fc6821c4138a5e08ec4ac771350";
 
 
 
@@ -26,13 +24,14 @@ export default function Form() {
       });
 
     
+
   useEffect(() => {
     let authParameters = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
+            body: 'grant_type=client_credentials&client_id=' + `${process.env.NEXT_PUBLIC_CLIENT_ID}` + '&client_secret=' + `${process.env.NEXT_PUBLIC_CLIENT_SECRET}`
         }
     async function fetchData() {
     const response = await fetch('https://accounts.spotify.com/api/token', authParameters);
@@ -87,7 +86,7 @@ export default function Form() {
 
         await fetch('https://api.spotify.com/v1/artists/' + artistId + '/albums' + '?include_groups=album&market=GB&limit=50', searchParameters)
         .then(response => response.json())
-        .then(data => {console.log("This", data.items[0].id); setAlbums(data.items);})
+        .then(data => { setAlbums(data.items);})
 
 
 

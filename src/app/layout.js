@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
       <header><p className="header-title">MUS0 MUSE</p>
       <nav className="nav-link">
-          <Link href="/" className="nav-link">SAVED ALBUMS</Link> | <Link href="/searchalbums" className="nav-link">SEARCH ALBUMS</Link> | <Link href ="/about" className="nav-link">ABOUT</Link> | <Link href="/profiles" className="nav-link">PROFILES</Link> 
+          <Link href="/" className="nav-link">SAVED ALBUMS</Link> | <Link href="/searchalbums" className="nav-link">SEARCH ALBUMS</Link>
         </nav>
       </header>
         {children}
